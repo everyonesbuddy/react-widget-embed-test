@@ -18,16 +18,14 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import MyWidget from "./components/MyWidgets.jsx";
+import Widget from "./components/Widgets";
 
-// Expose the widget globally
-window.MyWidget = {
-  init: (selector, props = {}) => {
-    const container = document.querySelector(selector);
-    if (container) {
-      ReactDOM.render(<MyWidget {...props} />, container);
-    } else {
-      console.error(`Container not found for selector: ${selector}`);
-    }
-  },
+export const renderWidget = (containerId) => {
+  const container =
+    document.getElementById(containerId) || document.createElement("div");
+  if (!container.id) {
+    container.id = containerId;
+    document.body.appendChild(container);
+  }
+  ReactDOM.render(<Widget />, container);
 };

@@ -1,18 +1,17 @@
 const path = require("path");
 
 module.exports = {
-  mode: "production", // Set the mode to 'production' or 'development'
-  entry: "./src/index.js", // Entry point for your widget
+  entry: "./src/index.js",
   output: {
+    filename: "widget.js",
     path: path.resolve(__dirname, "dist"),
-    filename: "my-widget.js", // Output bundle
-    library: "MyWidget", // Expose the widget as a library
-    libraryTarget: "umd", // Universal Module Definition
+    library: "MyWidget",
+    libraryTarget: "umd",
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/, // Transpile JavaScript and JSX
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -21,10 +20,13 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
-  externals: {
-    react: "React",
-    "react-dom": "ReactDOM", // Exclude React and ReactDOM from the bundle
+  resolve: {
+    extensions: [".js", ".jsx"],
   },
 };
