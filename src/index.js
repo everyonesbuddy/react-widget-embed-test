@@ -20,11 +20,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import MyWidget from "./components/MyWidgets.jsx";
 
+// Expose the widget globally
 window.MyWidget = {
   init: (selector, props = {}) => {
     const container = document.querySelector(selector);
     if (container) {
       ReactDOM.render(<MyWidget {...props} />, container);
+    } else {
+      console.error(`Container not found for selector: ${selector}`);
     }
   },
 };
