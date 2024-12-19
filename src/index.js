@@ -1,31 +1,21 @@
-// import React from "react";
-// import ReactDOM from "react-dom/client";
-// import "./index.css";
-// import App from "./App";
-// import reportWebVitals from "./reportWebVitals";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./index.css";
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-// root.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>
-// );
+// Widget initialization function
+function initWidget(config = {}) {
+  const widgetRoot = document.createElement("div");
+  widgetRoot.id = "react-widget-root";
+  document.body.appendChild(widgetRoot);
 
-// // If you want to start measuring performance in your app, pass a function
-// // to log results (for example: reportWebVitals(console.log))
-// // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();
+  const root = createRoot(widgetRoot);
+  root.render(<App {...config} />);
+}
 
-import React from "react";
-import ReactDOM from "react-dom";
-import Widget from "./components/Widgets";
+// Export for UMD bundle
+export { initWidget };
 
-export const renderWidget = (containerId) => {
-  const container =
-    document.getElementById(containerId) || document.createElement("div");
-  if (!container.id) {
-    container.id = containerId;
-    document.body.appendChild(container);
-  }
-  ReactDOM.render(<Widget />, container);
-};
+// Auto-initialize if window.WIDGET_CONFIG exists
+if (typeof window !== "undefined" && window.WIDGET_CONFIG) {
+  initWidget(window.WIDGET_CONFIG);
+}

@@ -1,11 +1,12 @@
-import MyWidgets from "./components/MyWidgets.jsx";
+import { Widget } from "./components/Widget/Widget";
 
 function App() {
   return (
-    <div>
-      <h1>React Widget</h1>
-      <MyWidgets />
-    </div>
+    <Widget
+      position="bottom-right"
+      buttonText="Open Widget"
+      title="Sample Widget"
+    />
   );
 }
 

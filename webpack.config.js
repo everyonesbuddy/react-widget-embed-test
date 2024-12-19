@@ -3,15 +3,16 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.js",
   output: {
-    filename: "widget.js",
     path: path.resolve(__dirname, "dist"),
-    library: "MyWidget",
+    filename: "widget.js",
+    library: "ReactWidget",
     libraryTarget: "umd",
+    globalObject: "this",
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -21,12 +22,20 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
     ],
   },
   resolve: {
     extensions: [".js", ".jsx"],
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
   },
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
+  },
+  mode: "production",
 };
