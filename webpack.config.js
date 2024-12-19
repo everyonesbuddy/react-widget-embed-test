@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -30,7 +31,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@": path.resolve(__dirname, "client/src"),
     },
   },
   externals: {
@@ -38,4 +39,14 @@ module.exports = {
     "react-dom": "ReactDOM",
   },
   mode: "production",
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "./public/index.html",
+          to: "index.html",
+        },
+      ],
+    }),
+  ],
 };
