@@ -1,10 +1,17 @@
+import { Button } from "@mui/material";
 import { X, MessageCircle } from "lucide-react";
 
 export const WidgetButton = ({ onClick, isOpen, text }) => {
   return (
-    <button
+    <Button
       onClick={onClick}
-      className="rounded-full shadow-lg flex items-center gap-2 bg-primary hover:bg-primary/90 transition-all duration-200"
+      variant="contained"
+      color="secondary"
+      style={{
+        borderRadius: "10px",
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+      }}
+      className="flex items-center gap-2 transition-all duration-200"
     >
       {isOpen ? (
         <>
@@ -17,6 +24,6 @@ export const WidgetButton = ({ onClick, isOpen, text }) => {
           <span>{text}</span>
         </>
       )}
-    </button>
+    </Button>
   );
 };
